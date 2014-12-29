@@ -10,6 +10,17 @@ Tag generator for [Hexo].
 $ npm install hexo-generator-tag --save
 ```
 
+## Options
+
+``` yaml
+tag_dir: tags
+tag_generator:
+  per_page: 10
+```
+
+- **tag_dir**: Tag directory
+- **per_page**: Posts displayed per page. (0 = disable pagination)
+
 ## License
 
 MIT
