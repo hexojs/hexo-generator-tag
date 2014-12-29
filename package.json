@@ -40,7 +40,7 @@
     "rimraf": "^2.2.8"
   },
   "dependencies": {
-    "hexo-pagination": "0.0.1",
+    "hexo-pagination": "0.0.2",
     "utils-merge": "^1.0.0"
   }
 }
