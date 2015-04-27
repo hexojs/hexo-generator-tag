@@ -83,6 +83,9 @@ describe('Tag generator', function(){
     result[2].data.next.should.eql(0);
     result[2].data.next_link.should.eql('');
     result[2].data.tag.should.eql('bar');
+
+    // Restore config
+    hexo.config.tag_generator.per_page = 10;
   });
 
   it('pagination disabled', function(){
@@ -121,5 +124,23 @@ describe('Tag generator', function(){
     result[1].data.next.should.eql(0);
     result[1].data.next_link.should.eql('');
     result[1].data.tag.should.eql('bar');
+
+    // Restore config
+    hexo.config.tag_generator.per_page = 10;
+  });
+
+  it('custom pagination_dir', function(){
+    hexo.config.tag_generator.per_page = 2;
+    hexo.config.pagination_dir = 'yo';
+
+    var result = generator(locals);
+
+    result.map(function(item){
+      return item.path;
+    }).should.eql(['tags/foo/', 'tags/foo/yo/2/', 'tags/bar/']);
+
+    // Restore config
+    hexo.config.tag_generator.per_page = 10;
+    hexo.config.pagination_dir = 'page';
   });
 });
