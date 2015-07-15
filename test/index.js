@@ -36,111 +36,256 @@ describe('Tag generator', function(){
     });
   });
 
-  it('pagination enabled', function(){
-    hexo.config.tag_generator.per_page = 2;
+  describe('Disable index page', function() {
+    it('pagination enabled', function(){
+      hexo.config.tag_generator.per_page = 2;
 
-    var result = generator(locals);
+      var result = generator(locals);
 
-    result.length.should.eql(3);
+      result.length.should.eql(3);
 
-    for (var i = 0, len = result.length; i < len; i++){
-      result[i].layout.should.eql(['tag', 'archive', 'index']);
-    }
+      for (var i = 0, len = result.length; i < len; i++){
+        result[i].layout.should.eql(['tag', 'archive', 'index']);
+      }
 
-    result[0].path.should.eql('tags/foo/');
-    result[0].data.base.should.eql('tags/foo/');
-    result[0].data.total.should.eql(2);
-    result[0].data.current.should.eql(1);
-    result[0].data.current_url.should.eql('tags/foo/');
-    result[0].data.posts.eq(0)._id.should.eql(posts[3]._id);
-    result[0].data.posts.eq(1)._id.should.eql(posts[0]._id);
-    result[0].data.prev.should.eql(0);
-    result[0].data.prev_link.should.eql('');
-    result[0].data.next.should.eql(2);
-    result[0].data.next_link.should.eql('tags/foo/page/2/');
-    result[0].data.tag.should.eql('foo');
+      result[0].path.should.eql('tags/foo/');
+      result[0].data.base.should.eql('tags/foo/');
+      result[0].data.total.should.eql(2);
+      result[0].data.current.should.eql(1);
+      result[0].data.current_url.should.eql('tags/foo/');
+      result[0].data.posts.eq(0)._id.should.eql(posts[3]._id);
+      result[0].data.posts.eq(1)._id.should.eql(posts[0]._id);
+      result[0].data.prev.should.eql(0);
+      result[0].data.prev_link.should.eql('');
+      result[0].data.next.should.eql(2);
+      result[0].data.next_link.should.eql('tags/foo/page/2/');
+      result[0].data.tag.should.eql('foo');
 
-    result[1].path.should.eql('tags/foo/page/2/');
-    result[1].data.base.should.eql('tags/foo/');
-    result[1].data.total.should.eql(2);
-    result[1].data.current.should.eql(2);
-    result[1].data.current_url.should.eql('tags/foo/page/2/');
-    result[1].data.posts.eq(0)._id.should.eql(posts[2]._id);
-    result[1].data.prev.should.eql(1);
-    result[1].data.prev_link.should.eql('tags/foo/');
-    result[1].data.next.should.eql(0);
-    result[1].data.next_link.should.eql('');
-    result[1].data.tag.should.eql('foo');
+      result[1].path.should.eql('tags/foo/page/2/');
+      result[1].data.base.should.eql('tags/foo/');
+      result[1].data.total.should.eql(2);
+      result[1].data.current.should.eql(2);
+      result[1].data.current_url.should.eql('tags/foo/page/2/');
+      result[1].data.posts.eq(0)._id.should.eql(posts[2]._id);
+      result[1].data.prev.should.eql(1);
+      result[1].data.prev_link.should.eql('tags/foo/');
+      result[1].data.next.should.eql(0);
+      result[1].data.next_link.should.eql('');
+      result[1].data.tag.should.eql('foo');
 
-    result[2].path.should.eql('tags/bar/');
-    result[2].data.base.should.eql('tags/bar/');
-    result[2].data.total.should.eql(1);
-    result[2].data.current.should.eql(1);
-    result[2].data.current_url.should.eql('tags/bar/');
-    result[2].data.posts.eq(0)._id.should.eql(posts[1]._id);
-    result[2].data.prev.should.eql(0);
-    result[2].data.prev_link.should.eql('');
-    result[2].data.next.should.eql(0);
-    result[2].data.next_link.should.eql('');
-    result[2].data.tag.should.eql('bar');
+      result[2].path.should.eql('tags/bar/');
+      result[2].data.base.should.eql('tags/bar/');
+      result[2].data.total.should.eql(1);
+      result[2].data.current.should.eql(1);
+      result[2].data.current_url.should.eql('tags/bar/');
+      result[2].data.posts.eq(0)._id.should.eql(posts[1]._id);
+      result[2].data.prev.should.eql(0);
+      result[2].data.prev_link.should.eql('');
+      result[2].data.next.should.eql(0);
+      result[2].data.next_link.should.eql('');
+      result[2].data.tag.should.eql('bar');
 
-    // Restore config
-    hexo.config.tag_generator.per_page = 10;
+      // Restore config
+      hexo.config.tag_generator.per_page = 10;
+    });
+
+    it('pagination disabled', function(){
+      hexo.config.tag_generator.per_page = 0;
+
+      var result = generator(locals);
+
+      result.length.should.eql(2);
+
+      for (var i = 0, len = result.length; i < len; i++){
+        result[i].layout.should.eql(['tag', 'archive', 'index']);
+      }
+
+      result[0].path.should.eql('tags/foo/');
+      result[0].data.base.should.eql('tags/foo/');
+      result[0].data.total.should.eql(1);
+      result[0].data.current.should.eql(1);
+      result[0].data.current_url.should.eql('tags/foo/');
+      result[0].data.posts.eq(0)._id.should.eql(posts[3]._id);
+      result[0].data.posts.eq(1)._id.should.eql(posts[0]._id);
+      result[0].data.posts.eq(2)._id.should.eql(posts[2]._id);
+      result[0].data.prev.should.eql(0);
+      result[0].data.prev_link.should.eql('');
+      result[0].data.next.should.eql(0);
+      result[0].data.next_link.should.eql('');
+      result[0].data.tag.should.eql('foo');
+
+      result[1].path.should.eql('tags/bar/');
+      result[1].data.base.should.eql('tags/bar/');
+      result[1].data.total.should.eql(1);
+      result[1].data.current.should.eql(1);
+      result[1].data.current_url.should.eql('tags/bar/');
+      result[1].data.posts.eq(0)._id.should.eql(posts[1]._id);
+      result[1].data.prev.should.eql(0);
+      result[1].data.prev_link.should.eql('');
+      result[1].data.next.should.eql(0);
+      result[1].data.next_link.should.eql('');
+      result[1].data.tag.should.eql('bar');
+
+      // Restore config
+      hexo.config.tag_generator.per_page = 10;
+    });
+
+    it('custom pagination_dir', function(){
+      hexo.config.tag_generator.per_page = 2;
+      hexo.config.pagination_dir = 'yo';
+
+      var result = generator(locals);
+
+      result.map(function(item){
+        return item.path;
+      }).should.eql(['tags/foo/', 'tags/foo/yo/2/', 'tags/bar/']);
+
+      // Restore config
+      hexo.config.tag_generator.per_page = 10;
+      hexo.config.pagination_dir = 'page';
+    });
   });
 
-  it('pagination disabled', function(){
-    hexo.config.tag_generator.per_page = 0;
+  describe('Enable index page', function() {
+    it('pagination enabled', function(){
+      hexo.config.tag_generator.per_page = 2;
+      hexo.config.tag_generator.enable_index_page = true;
 
-    var result = generator(locals);
+      var result = generator(locals);
 
-    result.length.should.eql(2);
+      result.length.should.eql(4);
 
-    for (var i = 0, len = result.length; i < len; i++){
-      result[i].layout.should.eql(['tag', 'archive', 'index']);
-    }
+      for (var i = 0, len = result.length - 1; i < len; i++){
+        result[i].layout.should.eql(['tag', 'archive', 'index']);
+      }
+      result[3].layout.should.eql(['tag-index', 'tag', 'archive', 'index']);
 
-    result[0].path.should.eql('tags/foo/');
-    result[0].data.base.should.eql('tags/foo/');
-    result[0].data.total.should.eql(1);
-    result[0].data.current.should.eql(1);
-    result[0].data.current_url.should.eql('tags/foo/');
-    result[0].data.posts.eq(0)._id.should.eql(posts[3]._id);
-    result[0].data.posts.eq(1)._id.should.eql(posts[0]._id);
-    result[0].data.posts.eq(2)._id.should.eql(posts[2]._id);
-    result[0].data.prev.should.eql(0);
-    result[0].data.prev_link.should.eql('');
-    result[0].data.next.should.eql(0);
-    result[0].data.next_link.should.eql('');
-    result[0].data.tag.should.eql('foo');
+      result[0].path.should.eql('tags/foo/');
+      result[0].data.base.should.eql('tags/foo/');
+      result[0].data.total.should.eql(2);
+      result[0].data.current.should.eql(1);
+      result[0].data.current_url.should.eql('tags/foo/');
+      result[0].data.posts.eq(0)._id.should.eql(posts[3]._id);
+      result[0].data.posts.eq(1)._id.should.eql(posts[0]._id);
+      result[0].data.prev.should.eql(0);
+      result[0].data.prev_link.should.eql('');
+      result[0].data.next.should.eql(2);
+      result[0].data.next_link.should.eql('tags/foo/page/2/');
+      result[0].data.tag.should.eql('foo');
 
-    result[1].path.should.eql('tags/bar/');
-    result[1].data.base.should.eql('tags/bar/');
-    result[1].data.total.should.eql(1);
-    result[1].data.current.should.eql(1);
-    result[1].data.current_url.should.eql('tags/bar/');
-    result[1].data.posts.eq(0)._id.should.eql(posts[1]._id);
-    result[1].data.prev.should.eql(0);
-    result[1].data.prev_link.should.eql('');
-    result[1].data.next.should.eql(0);
-    result[1].data.next_link.should.eql('');
-    result[1].data.tag.should.eql('bar');
+      result[1].path.should.eql('tags/foo/page/2/');
+      result[1].data.base.should.eql('tags/foo/');
+      result[1].data.total.should.eql(2);
+      result[1].data.current.should.eql(2);
+      result[1].data.current_url.should.eql('tags/foo/page/2/');
+      result[1].data.posts.eq(0)._id.should.eql(posts[2]._id);
+      result[1].data.prev.should.eql(1);
+      result[1].data.prev_link.should.eql('tags/foo/');
+      result[1].data.next.should.eql(0);
+      result[1].data.next_link.should.eql('');
+      result[1].data.tag.should.eql('foo');
 
-    // Restore config
-    hexo.config.tag_generator.per_page = 10;
-  });
+      result[2].path.should.eql('tags/bar/');
+      result[2].data.base.should.eql('tags/bar/');
+      result[2].data.total.should.eql(1);
+      result[2].data.current.should.eql(1);
+      result[2].data.current_url.should.eql('tags/bar/');
+      result[2].data.posts.eq(0)._id.should.eql(posts[1]._id);
+      result[2].data.prev.should.eql(0);
+      result[2].data.prev_link.should.eql('');
+      result[2].data.next.should.eql(0);
+      result[2].data.next_link.should.eql('');
+      result[2].data.tag.should.eql('bar');
 
-  it('custom pagination_dir', function(){
-    hexo.config.tag_generator.per_page = 2;
-    hexo.config.pagination_dir = 'yo';
+      result[3].path.should.eql('tags/');
+      result[3].data.base.should.eql('tags/');
+      result[3].data.total.should.eql(1);
+      result[3].data.current.should.eql(1);
+      result[3].data.current_url.should.eql('tags/');
+      // just all posts
+      result[3].data.posts.should.eql(locals.posts);
+      result[3].data.prev.should.eql(0);
+      result[3].data.prev_link.should.eql('');
+      result[3].data.next.should.eql(0);
+      result[3].data.next_link.should.eql('');
+      // no tag, tags instead
+      (result[3].data.tag === undefined).should.be.true;
+      result[3].data.tags.should.eql(locals.tags);
 
-    var result = generator(locals);
+      // Restore config
+      hexo.config.tag_generator.per_page = 10;
+    });
 
-    result.map(function(item){
-      return item.path;
-    }).should.eql(['tags/foo/', 'tags/foo/yo/2/', 'tags/bar/']);
+    it('pagination disabled', function(){
+      hexo.config.tag_generator.per_page = 0;
+      hexo.config.tag_generator.enable_index_page = true;
 
-    // Restore config
-    hexo.config.tag_generator.per_page = 10;
-    hexo.config.pagination_dir = 'page';
+      var result = generator(locals);
+
+      result.length.should.eql(3);
+
+      for (var i = 0, len = result.length - 1; i < len; i++){
+        result[i].layout.should.eql(['tag', 'archive', 'index']);
+      }
+      result[2].layout.should.eql(['tag-index', 'tag', 'archive', 'index']);
+
+      result[0].path.should.eql('tags/foo/');
+      result[0].data.base.should.eql('tags/foo/');
+      result[0].data.total.should.eql(1);
+      result[0].data.current.should.eql(1);
+      result[0].data.current_url.should.eql('tags/foo/');
+      result[0].data.posts.eq(0)._id.should.eql(posts[3]._id);
+      result[0].data.posts.eq(1)._id.should.eql(posts[0]._id);
+      result[0].data.posts.eq(2)._id.should.eql(posts[2]._id);
+      result[0].data.prev.should.eql(0);
+      result[0].data.prev_link.should.eql('');
+      result[0].data.next.should.eql(0);
+      result[0].data.next_link.should.eql('');
+      result[0].data.tag.should.eql('foo');
+
+      result[1].path.should.eql('tags/bar/');
+      result[1].data.base.should.eql('tags/bar/');
+      result[1].data.total.should.eql(1);
+      result[1].data.current.should.eql(1);
+      result[1].data.current_url.should.eql('tags/bar/');
+      result[1].data.posts.eq(0)._id.should.eql(posts[1]._id);
+      result[1].data.prev.should.eql(0);
+      result[1].data.prev_link.should.eql('');
+      result[1].data.next.should.eql(0);
+      result[1].data.next_link.should.eql('');
+      result[1].data.tag.should.eql('bar');
+
+      result[2].path.should.eql('tags/');
+      result[2].data.base.should.eql('tags/');
+      result[2].data.total.should.eql(1);
+      result[2].data.current.should.eql(1);
+      result[2].data.current_url.should.eql('tags/');
+      result[2].data.posts.should.eql(locals.posts);
+      result[2].data.prev.should.eql(0);
+      result[2].data.prev_link.should.eql('');
+      result[2].data.next.should.eql(0);
+      result[2].data.next_link.should.eql('');
+      (result[2].data.tag === undefined).should.be.true;
+      result[2].data.tags.should.eql(locals.tags);
+
+      // Restore config
+      hexo.config.tag_generator.per_page = 10;
+    });
+
+    it('custom pagination_dir', function(){
+      hexo.config.tag_generator.per_page = 2;
+      hexo.config.pagination_dir = 'yo';
+      hexo.config.tag_generator.enable_index_page = true;
+
+      var result = generator(locals);
+
+      result.map(function(item){
+        return item.path;
+      }).should.eql(['tags/foo/', 'tags/foo/yo/2/', 'tags/bar/', 'tags/']);
+
+      // Restore config
+      hexo.config.tag_generator.per_page = 10;
+      hexo.config.pagination_dir = 'page';
+    });
   });
 });
