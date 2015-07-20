@@ -14,12 +14,16 @@ $ npm install hexo-generator-tag --save
 
 ``` yaml
 tag_generator:
-  per_page: 10
-  enable_index_page: false
+	per_page: 10
+	enable_index_page: false
+	orderby: name
+	order: 1
 ```
 
 - **per_page**: Posts displayed per page. (0 = disable pagination)
-- **enable_index_page**: defines whether an index page is generated. (0 = disable pagination)
+- **enable_index_page**: defines whether an index page is generated.
+- **orderby**: Order of tags.
+- **order**: Sort order. 1, for ascending; -1, for descending
 
 ## Index page generation
 
