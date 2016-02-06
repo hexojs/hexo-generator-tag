@@ -1,9 +1,9 @@
 'use strict';
 
-var should = require('chai').should();
+var should = require('chai').should(); // eslint-disable-line
 var Hexo = require('hexo');
 
-describe('Tag generator', function(){
+describe('Tag generator', function() {
   var hexo = new Hexo(__dirname, {silent: true});
   var Post = hexo.model('Post');
   var generator = require('../lib/generator').bind(hexo);
@@ -15,36 +15,36 @@ describe('Tag generator', function(){
     per_page: 10
   };
 
-  before(function(){
+  before(function() {
     return Post.insert([
       {source: 'foo', slug: 'foo', date: 1e8},
       {source: 'bar', slug: 'bar', date: 1e8 + 1},
       {source: 'baz', slug: 'baz', date: 1e8 - 1},
       {source: 'boo', slug: 'boo', date: 1e8 + 2}
-    ]).then(function(data){
+    ]).then(function(data) {
       posts = data;
 
-      return posts[0].setTags(['foo']).then(function(){
+      return posts[0].setTags(['foo']).then(function() {
         return posts[1].setTags(['bar']);
-      }).then(function(){
+      }).then(function() {
         return posts[2].setTags(['foo']);
-      }).then(function(){
+      }).then(function() {
         return posts[3].setTags(['foo']);
       });
-    }).then(function(){
+    }).then(function() {
       locals = hexo.locals.toObject();
     });
   });
 
   describe('Disable index page', function() {
-    it('pagination enabled', function(){
+    it('pagination enabled', function() {
       hexo.config.tag_generator.per_page = 2;
 
       var result = generator(locals);
 
       result.length.should.eql(3);
 
-      for (var i = 0, len = result.length; i < len; i++){
+      for (var i = 0, len = result.length; i < len; i++) {
         result[i].layout.should.eql(['tag', 'archive', 'index']);
       }
 
@@ -89,14 +89,14 @@ describe('Tag generator', function(){
       hexo.config.tag_generator.per_page = 10;
     });
 
-    it('pagination disabled', function(){
+    it('pagination disabled', function() {
       hexo.config.tag_generator.per_page = 0;
 
       var result = generator(locals);
 
       result.length.should.eql(2);
 
-      for (var i = 0, len = result.length; i < len; i++){
+      for (var i = 0, len = result.length; i < len; i++) {
         result[i].layout.should.eql(['tag', 'archive', 'index']);
       }
 
@@ -130,13 +130,13 @@ describe('Tag generator', function(){
       hexo.config.tag_generator.per_page = 10;
     });
 
-    it('custom pagination_dir', function(){
+    it('custom pagination_dir', function() {
       hexo.config.tag_generator.per_page = 2;
       hexo.config.pagination_dir = 'yo';
 
       var result = generator(locals);
 
-      result.map(function(item){
+      result.map(function(item) {
         return item.path;
       }).should.eql(['tags/foo/', 'tags/foo/yo/2/', 'tags/bar/']);
 
@@ -147,7 +147,7 @@ describe('Tag generator', function(){
   });
 
   describe('Enable index page', function() {
-    it('pagination enabled', function(){
+    it('pagination enabled', function() {
       hexo.config.tag_generator.per_page = 2;
       hexo.config.tag_generator.enable_index_page = true;
 
@@ -155,9 +155,10 @@ describe('Tag generator', function(){
 
       result.length.should.eql(4);
 
-      for (var i = 0, len = result.length - 1; i < len; i++){
+      for (var i = 0, len = result.length - 1; i < len; i++) {
         result[i].layout.should.eql(['tag', 'archive', 'index']);
       }
+
       result[3].layout.should.eql(['tag-index', 'tag', 'archive', 'index']);
 
       result[0].path.should.eql('tags/foo/');
@@ -216,7 +217,7 @@ describe('Tag generator', function(){
       hexo.config.tag_generator.per_page = 10;
     });
 
-    it('pagination disabled', function(){
+    it('pagination disabled', function() {
       hexo.config.tag_generator.per_page = 0;
       hexo.config.tag_generator.enable_index_page = true;
 
@@ -224,9 +225,10 @@ describe('Tag generator', function(){
 
       result.length.should.eql(3);
 
-      for (var i = 0, len = result.length - 1; i < len; i++){
+      for (var i = 0, len = result.length - 1; i < len; i++) {
         result[i].layout.should.eql(['tag', 'archive', 'index']);
       }
+
       result[2].layout.should.eql(['tag-index', 'tag', 'archive', 'index']);
 
       result[0].path.should.eql('tags/foo/');
@@ -272,14 +274,14 @@ describe('Tag generator', function(){
       hexo.config.tag_generator.per_page = 10;
     });
 
-    it('custom pagination_dir', function(){
+    it('custom pagination_dir', function() {
       hexo.config.tag_generator.per_page = 2;
       hexo.config.pagination_dir = 'yo';
       hexo.config.tag_generator.enable_index_page = true;
 
       var result = generator(locals);
 
-      result.map(function(item){
+      result.map(function(item) {
         return item.path;
       }).should.eql(['tags/foo/', 'tags/foo/yo/2/', 'tags/bar/', 'tags/']);
 
