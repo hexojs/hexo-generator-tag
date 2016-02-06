@@ -1,6 +1,6 @@
 {
   "name": "hexo-generator-tag",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Tag generator for Hexo.",
   "main": "index",
   "scripts": {
