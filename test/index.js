@@ -5,6 +5,7 @@ var Hexo = require('hexo');
 
 describe('Tag generator', function() {
   var hexo = new Hexo(__dirname, {silent: true});
+  hexo.init();
   var Post = hexo.model('Post');
   var generator = require('../lib/generator').bind(hexo);
   var posts;
