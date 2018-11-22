@@ -27,7 +27,7 @@
     "mocha": "^2.4.5",
     "istanbul": "^0.4.2",
     "eslint": "^1.10.3",
-    "jscs": "^2.9.0",
+    "jscs": "^3.0.7",
     "eslint-config-hexo": "^1.0.2",
     "jscs-preset-hexo": "^1.0.1"
   },
