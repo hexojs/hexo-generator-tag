@@ -32,7 +32,7 @@
     "jscs-preset-hexo": "^1.0.1"
   },
   "dependencies": {
-    "hexo-pagination": "0.0.2",
+    "hexo-pagination": "0.1.0",
     "object-assign": "^4.0.1"
   }
 }
