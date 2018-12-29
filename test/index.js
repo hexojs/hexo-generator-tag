@@ -8,8 +8,8 @@ describe('Tag generator', function() {
   hexo.init();
   var Post = hexo.model('Post');
   var generator = require('../lib/generator').bind(hexo);
-  var posts;
-  var locals;
+  var posts,
+    locals;
 
   // Default config
   hexo.config.tag_generator = {
