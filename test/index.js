@@ -22,7 +22,7 @@ describe('Tag generator', () => {
       {source: 'bar', slug: 'bar', date: 1e8 + 1},
       {source: 'baz', slug: 'baz', date: 1e8 - 1},
       {source: 'boo', slug: 'boo', date: 1e8 + 2}
-    ]).then((data) => {
+    ]).then(data => {
       posts = data;
 
       return posts[0].setTags(['foo']).then(() => {
@@ -137,7 +137,7 @@ describe('Tag generator', () => {
 
       const result = generator(locals);
 
-      result.map((item) => {
+      result.map(item => {
         return item.path;
       }).should.eql(['tags/foo/', 'tags/foo/yo/2/', 'tags/bar/']);
 
@@ -282,7 +282,7 @@ describe('Tag generator', () => {
 
       const result = generator(locals);
 
-      result.map((item) => {
+      result.map(item => {
         return item.path;
       }).should.eql(['tags/foo/', 'tags/foo/yo/2/', 'tags/bar/', 'tags/']);
 
