@@ -22,6 +22,8 @@ tag_generator:
 
 - **per_page**: Posts displayed per page. (0 = disable pagination)
 - **order_by**: Posts order. (Order by date descending by default)
+- **enable_index_page**: Generate a `/[config.tag_dir]/index.html` page.
+  - Support following template layout: `tag-index`, `tag`, `archive`, `index`
 
 ## License
 
