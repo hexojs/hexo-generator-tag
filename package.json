@@ -29,7 +29,7 @@
     "chai": "^4.3.6",
     "eslint": "^9.0.0",
     "eslint-config-hexo": "^6.0.0",
-    "hexo": "^7.0.0",
+    "hexo": "^8.1.1",
     "mocha": "^10.0.0"
   },
   "dependencies": {
